@@ -17,6 +17,7 @@ suites:
 - name: redis-01
   encrypted_data_bag_secret_key_path: "test/integration/encrypted_data_bag_secret"
   run_list:
+    - recipe[apt]
     - recipe[build-essential]
     - recipe[optoro_redisha::default]
     - recipe[optoro_redisha::initial_master]
@@ -25,6 +26,7 @@ suites:
 - name: redis-02
   encrypted_data_bag_secret_key_path: "test/integration/encrypted_data_bag_secret"
   run_list:
+    - recipe[apt]
     - recipe[build-essential]
     - recipe[optoro_redisha::default]
     - recipe[optoro_redisha::initial_slave]
@@ -33,6 +35,7 @@ suites:
 - name: redis-03
   encrypted_data_bag_secret_key_path: "test/integration/encrypted_data_bag_secret"
   run_list:
+    - recipe[apt]
     - recipe[build-essential]
     - recipe[optoro_redisha::default]
     - recipe[optoro_redisha::initial_sentinel]
