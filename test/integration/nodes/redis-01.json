@@ -4,7 +4,7 @@
   "run_list": [
     "recipe[build-essential]",
     "recipe[optoro_redisha::default]",
-    "recipe[optoro_redisha::initial-master]",
+    "recipe[optoro_redisha::redis_service]",
     "recipe[optoro_redisha::redis]",
     "recipe[optoro_redisha::sentinel]"
   ],
