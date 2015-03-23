@@ -1,11 +1,11 @@
-slaveof = nil
-master_ip = nil
+hosts = []
 
 unless Chef::Config['solo']
   hosts = search(:node, 'recipe:optoro_redisha\:\:initial-master')
-  master_ip = hosts.empty? ? nil : hosts.first['ipaddress']
-  slaveof = master_ip ? "slaveof #{master_ip}" : nil
 end
+
+master_ip = hosts.empty? ? nil : hosts.first['ipaddress']
+slaveof = master_ip ? "slaveof #{master_ip}" : nil
 
 template '/etc/redis/redis.conf' do
   owner 'redis'
