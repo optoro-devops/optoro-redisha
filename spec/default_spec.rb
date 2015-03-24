@@ -35,8 +35,8 @@ describe 'optoro_redisha::default' do
         end
 
         %w( redis sentinel ).each do |redisservice|
-          it 'does nothing again' do
-            expect(chef_run).to_not start_service(redisservice)
+          it 'starts services' do
+            expect(chef_run).to start_service(redisservice)
           end
         end
       end
