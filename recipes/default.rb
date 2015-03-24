@@ -38,9 +38,7 @@ end
 
 # Search for an existing master
 hosts = []
-unless Chef::Config['solo']
-  hosts = search(:node, 'redisha_master')
-end
+hosts = search(:node, 'redisha_master') unless Chef::Config['solo']
 
 # If found, set the ip address, if not, we are master, use our ip address
 master_ip = hosts.empty? ? node['ipaddress'] : hosts.first['ipaddress']
@@ -48,10 +46,7 @@ master_ip = hosts.empty? ? node['ipaddress'] : hosts.first['ipaddress']
 node.set['redisha_master'] = true if master_ip == node['ipaddress']
 
 # Create slaveof line for slaves, leave nil if we are master
-slaveof = nil
-unless master_ip == node['ipaddress']
-  slaveof = "slaveof #{master_ip}"
-end
+slaveof = "slaveof #{master_ip}" unless master_ip == node['ipaddress']
 
 template '/etc/redis/redis.conf' do
   owner 'redis'
@@ -71,7 +66,7 @@ template '/etc/redis/sentinel.conf' do
   not_if { ::File.exist?('/etc/redis/sentinel.conf') }
 end
 
-# Allow services to be started                            
+# Allow services to be started
 %w( redis sentinel ).each do |redisservice|
   service redisservice do
     supports :start => true
