@@ -38,7 +38,7 @@ end
 
 # Search for an existing master
 hosts = []
-hosts = search(:node, 'redisha_master') unless Chef::Config['solo']
+hosts = search(:node, 'redisha_master') unless Chef::Config['solo'] # ~FC003
 
 # If found, set the ip address, if not, we are master, use our ip address
 master_ip = hosts.empty? ? node['ipaddress'] : hosts.first['ipaddress']
