@@ -40,7 +40,7 @@ end
 # the master is setup in the role which is used by terraform to make this VPC/product independent.
 
 # Create slaveof line for slaves, leave nil if we are master
-slaveof = "slaveof #{node['redisha']['master']}" unless node['fqdn'] == node['redisha']['master']
+slaveof = "slaveof #{node['redisha']['master']} 6379" unless node['fqdn'] == node['redisha']['master']
 
 template '/etc/redis/redis.conf' do
   owner 'redis'

@@ -20,6 +20,9 @@ suites:
     - recipe[apt]
     - recipe[build-essential]
     - recipe[optoro_redisha::default]
+  attributes:
+    redisha:
+      master: redis-001.stage.blinq.com
 - name: redis-02
   encrypted_data_bag_secret_key_path: "test/integration/encrypted_data_bag_secret"
   run_list:
