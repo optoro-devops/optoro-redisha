@@ -36,7 +36,7 @@ end
   end
 end
 
-# master/slave is set initially by chef and then managed by sentinal.  
+# master/slave is set initially by chef and then managed by sentinal.
 # the master is setup in the role which is used by terraform to make this VPC/product independent.
 
 # Create slaveof line for slaves, leave nil if we are master
