@@ -36,17 +36,11 @@ end
   end
 end
 
-# Search for an existing master
-hosts = []
-hosts = search(:node, 'redisha_master') unless Chef::Config['solo'] # ~FC003
-
-# If found, set the ip address, if not, we are master, use our ip address
-master_ip = hosts.empty? ? node['ipaddress'] : hosts.first['ipaddress']
-# Tell the world we are master
-node.set['redisha_master'] = true if master_ip == node['ipaddress']
+# master/slave is set initially by chef and then managed by sentinal.
+# the master is setup in the role which is used by terraform to make this VPC/product independent.
 
 # Create slaveof line for slaves, leave nil if we are master
-slaveof = "slaveof #{master_ip}" unless master_ip == node['ipaddress']
+slaveof = "slaveof #{node['redisha']['master']} 6379" unless node['fqdn'] == node['redisha']['master']
 
 template '/etc/redis/redis.conf' do
   owner 'redis'
@@ -61,7 +55,7 @@ template '/etc/redis/sentinel.conf' do
   owner 'redis'
   group 'redis'
   variables(
-    :sentinel => "sentinel monitor sentinel_sentinel #{master_ip} 6379 2"
+    :sentinel => "sentinel monitor sentinel_sentinel #{node['redisha']['master']} 6379 2"
   )
   not_if { ::File.exist?('/etc/redis/sentinel.conf') }
 end

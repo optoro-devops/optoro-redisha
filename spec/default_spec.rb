@@ -7,6 +7,7 @@ describe 'optoro_redisha::default' do
         let(:chef_run) do
           ChefSpec::SoloRunner.new(platform: platform, version: version, log_level: :error) do |node|
             node.set['lsb']['codename'] = value['codename']
+            node.set['redisha']['master'] = 'redis-001.stage.blinq.com'
           end.converge(described_recipe)
         end
 
