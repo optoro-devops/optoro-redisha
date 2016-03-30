@@ -4,3 +4,6 @@ HashSyntax:
   Enabled: false
 Next:
   Enabled: false
+AllCops:
+  Exclude:
+    - Guardfile
